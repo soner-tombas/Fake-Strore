@@ -31,53 +31,70 @@ async function getDate() {
 getDate()
     .then(data => {
         console.log(data)
-        data.forEach(urun => {
-            const col_3 = document.createElement('div')
-            col_3.classList.add("col-3")
-            const card = document.createElement("div")
-            card.className = "card"
-            card.style.width = "18rem"
-            const imgDiv = document.createElement("div")
+        let sepet = []
 
-            card.style.width = "100%"
-            card.style.height = "100%"
+            data.forEach(urun => {
+                const col_3 = document.createElement('div')
+                col_3.classList.add("col-3")
+                const card = document.createElement("div")
+                card.className = "card"
+                card.style.width = "18rem"
+                const imgDiv = document.createElement("div")
 
-            const img = document.createElement("img")
-            img.setAttribute("class", "card-img-top")
-            img.src = urun.image
+                card.style.width = "100%"
+                card.style.height = "100%"
 
-            const cardBody = document.createElement("div")
-            cardBody.classList.add("card-body")
+                const img = document.createElement("img")
+                img.setAttribute("class", "card-img-top")
+                img.src = urun.image
 
-            const cardTitle = document.createElement("h5")
-            card.classList.add("card-title")
-            cardTitle.innerHTML = urun.title
+                const cardBody = document.createElement("div")
+                cardBody.classList.add("card-body")
 
-            const cardText = document.createElement("p")
-            cardText.classList.add("card-text")
-            let content = `${urun.descripton}-price: ${urun.price}`
-            cardText.innerHTML = content
+                const cardTitle = document.createElement("h5")
+                card.classList.add("card-title")
+                cardTitle.innerHTML = urun.title
 
-
-            const btn = document.createElement("a")
-            btn.setAttribute("class", "btn btn-success  ")
-            btn.textContent = "Add To Cart"
-
-            cardBody.appendChild(cardTitle)
-            cardBody.appendChild(cardText)
-            cardBody.appendChild(btn)
-
-            imgDiv.appendChild(img)
-
-            card.appendChild(imgDiv)
-            card.appendChild(cardBody)
-
-            col_3.appendChild(card)
-
-            row.appendChild(col_3)
+                const cardText = document.createElement("p")
+                cardText.classList.add("card-text")
+                let content = `${urun.descripton}-price: ${urun.price}`
+                cardText.innerHTML = content
 
 
-        });
+                const btn = document.createElement("a")
+                btn.setAttribute("class", "btn btn-success  ")
+                btn.textContent = "Add To Cart"
+
+                btn.addEventListener("click", () => {
+console.log (urun)
+
+sepet.push(urun)
+
+console.log(sepet)
+
+let sepetJSON=JSON.stringify(sepet)
+localStorage.setItem("sepet",sepetJSON)
+
+
+
+                })
+
+                cardBody.appendChild(cardTitle)
+                cardBody.appendChild(cardText)
+                cardBody.appendChild(btn)
+
+                imgDiv.appendChild(img)
+
+                card.appendChild(imgDiv)
+                card.appendChild(cardBody)
+
+                col_3.appendChild(card)
+
+                row.appendChild(col_3)
+
+
+
+            });
     })
 
 
