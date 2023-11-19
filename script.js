@@ -1,7 +1,3 @@
-
-//  Fake git
-
-
 // Fake Store
 /* <div class="col-3">
 <div class="card" style="width: 18rem;">
@@ -15,96 +11,101 @@
 </div>
 </div> */
 
-const row = document.querySelector(".row")
-async function getDate() {
+// fetch('https://fakestoreapi.com/products')
+//     .then(res => res.json())
+//     .then(json => console.log(json))
 
+
+async function getData() {
     try {
         const response = await fetch('https://fakestoreapi.com/products')
         const data = await response.json()
+
         return data
+
     } catch (error) {
         console.log(error)
-
     }
 }
-
-getDate()
+getData()
     .then(data => {
         console.log(data)
+
+        // for (let i = 0; i < data.length; i++) {
+        //     console.log(data[i].title)
+        // }
+
         let sepet = []
+        const row = document.querySelector('#row')
 
-            data.forEach(urun => {
-                const col_3 = document.createElement('div')
-                col_3.classList.add("col-3")
-                const card = document.createElement("div")
-                card.className = "card"
-                card.style.width = "18rem"
-                const imgDiv = document.createElement("div")
+        data.forEach((urun) => {
+            console.log(urun)
 
-                card.style.width = "100%"
-                card.style.height = "100%"
+            urun.quantity = 1
 
-                const img = document.createElement("img")
-                img.setAttribute("class", "card-img-top")
-                img.src = urun.image
+            // Card Yapısını Oluşturmaya başlıyoruz
+            const col_3 = document.createElement('div')
+            col_3.classList.add('col-3')
 
-                const cardBody = document.createElement("div")
-                cardBody.classList.add("card-body")
-
-                const cardTitle = document.createElement("h5")
-                card.classList.add("card-title")
-                cardTitle.innerHTML = urun.title
-
-                const cardText = document.createElement("p")
-                cardText.classList.add("card-text")
-                let content = `${urun.descripton}-price: ${urun.price}`
-                cardText.innerHTML = content
+            const card = document.createElement('div')
+            card.className = 'card'
+            card.style.width = '18rem'
 
 
-                const btn = document.createElement("a")
-                btn.setAttribute("class", "btn btn-success  ")
-                btn.textContent = "Add To Cart"
+            const imgDiv = document.createElement('div')
+            imgDiv.style.width = "100%"
+            imgDiv.style.height = "100%"
 
-                btn.addEventListener("click", () => {
-console.log (urun)
+            const img = document.createElement('img')
+            img.setAttribute('class', 'card-img-top w-100')
+            img.src = urun.image
 
-sepet.push(urun)
+            const cardBody = document.createElement('div')
+            cardBody.classList.add('card-body')
 
-console.log(sepet)
+            const cardTitle = document.createElement('h5')
+            cardTitle.classList.add('card-title')
+            cardTitle.innerHTML = urun.title
 
-let sepetJSON=JSON.stringify(sepet)
-localStorage.setItem("sepet",sepetJSON)
+            const cardText = document.createElement('p')
+            cardText.classList.add('card-text')
+            let content = `price: ${urun.price}`
+            cardText.innerHTML = content
+
+            const btn = document.createElement('a')
+            btn.setAttribute('class', 'btn btn-success')
+            btn.textContent = 'Add To Cart'
 
 
+            btn.addEventListener('click', () => {
+                console.log(urun)
 
-                })
+                sepet.push(urun)
 
-                cardBody.appendChild(cardTitle)
-                cardBody.appendChild(cardText)
-                cardBody.appendChild(btn)
+                console.log(sepet)
 
-                imgDiv.appendChild(img)
+                let sepetJSON = JSON.stringify(sepet)
+                localStorage.setItem('sepet', sepetJSON)
 
-                card.appendChild(imgDiv)
-                card.appendChild(cardBody)
 
-                col_3.appendChild(card)
-
-                row.appendChild(col_3)
+            })
 
 
 
-            });
+            cardBody.appendChild(cardTitle)
+            cardBody.appendChild(cardText)
+            cardBody.appendChild(btn)
+
+            imgDiv.appendChild(img)
+
+            card.appendChild(imgDiv)
+            card.appendChild(cardBody)
+
+            col_3.appendChild(card)
+
+            row.appendChild(col_3)
+        })
+
+
     })
-
-
-
-
-
-
-
-
-
-
-
 
